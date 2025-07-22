@@ -26,7 +26,18 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
+				},
+				investment: {
+					DEFAULT: 'hsl(var(--investment))',
+					foreground: 'hsl(var(--investment-foreground))',
+					light: 'hsl(var(--investment-light))'
+				},
+				donation: {
+					DEFAULT: 'hsl(var(--donation))',
+					foreground: 'hsl(var(--donation-foreground))',
+					light: 'hsl(var(--donation-light))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -89,6 +100,17 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-investment': 'var(--gradient-investment)',
+				'gradient-donation': 'var(--gradient-donation)',
+				'gradient-hero': 'var(--gradient-hero)'
+			},
+			boxShadow: {
+				'card': 'var(--shadow-card)',
+				'investment': 'var(--shadow-investment)',
+				'donation': 'var(--shadow-donation)'
 			}
 		}
 	},
