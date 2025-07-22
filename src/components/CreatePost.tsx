@@ -46,9 +46,9 @@ const CreatePost = () => {
           <div className="flex-1">
             <Tabs value={postType} onValueChange={setPostType} className="w-full">
               <TabsList className="grid w-full grid-cols-3 mb-4">
-                <TabsTrigger value="regular">Regular Post</TabsTrigger>
-                <TabsTrigger value="need" className="text-donation">Need Support</TabsTrigger>
-                <TabsTrigger value="investment" className="text-investment">Investment</TabsTrigger>
+                <TabsTrigger value="regular" className="text-xs md:text-sm">Regular Post</TabsTrigger>
+                <TabsTrigger value="need" className="text-xs md:text-sm text-donation">Need Support</TabsTrigger>
+                <TabsTrigger value="investment" className="text-xs md:text-sm text-investment">Investment</TabsTrigger>
               </TabsList>
               
               <TabsContent value="regular" className="space-y-4">
@@ -126,37 +126,37 @@ const CreatePost = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center justify-between mt-6 pt-4 border-t">
-              <div className="flex items-center space-x-4">
-                <Button variant="ghost" size="sm">
+            <div className="flex flex-col sm:flex-row items-center justify-between mt-6 pt-4 border-t gap-4 sm:gap-0">
+              <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto justify-center sm:justify-start">
+                <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                   <Image className="w-4 h-4 mr-1" />
-                  Photo
+                  <span className="hidden sm:inline">Photo</span>
                 </Button>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                   <Video className="w-4 h-4 mr-1" />
-                  Video
+                  <span className="hidden sm:inline">Video</span>
                 </Button>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                   <Calendar className="w-4 h-4 mr-1" />
-                  Event
+                  <span className="hidden sm:inline">Event</span>
                 </Button>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 w-full sm:w-auto">
                 {postType === "need" && (
-                  <Button variant="donation" disabled={!postContent.trim()}>
+                  <Button variant="donation" disabled={!postContent.trim()} className="w-full sm:w-auto text-xs sm:text-sm">
                     <DollarSign className="w-4 h-4 mr-1" />
                     Post Need
                   </Button>
                 )}
                 {postType === "investment" && (
-                  <Button variant="investment" disabled={!postContent.trim()}>
+                  <Button variant="investment" disabled={!postContent.trim()} className="w-full sm:w-auto text-xs sm:text-sm">
                     <TrendingUp className="w-4 h-4 mr-1" />
                     Post Opportunity
                   </Button>
                 )}
                 {postType === "regular" && (
-                  <Button variant="premium" disabled={!postContent.trim()}>
+                  <Button variant="premium" disabled={!postContent.trim()} className="w-full sm:w-auto text-xs sm:text-sm">
                     Post
                   </Button>
                 )}

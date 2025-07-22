@@ -137,36 +137,36 @@ const PostCard = ({
       </CardContent>
 
       <CardFooter className="pt-3 border-t">
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center space-x-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-3 sm:gap-0">
+          <div className="flex items-center space-x-3 sm:space-x-6 w-full sm:w-auto justify-center sm:justify-start">
             <Button
               variant="ghost"
               size="sm"
               onClick={handleLike}
-              className={`${isLiked ? "text-red-500" : "text-muted-foreground"} hover:text-red-500`}
+              className={`${isLiked ? "text-red-500" : "text-muted-foreground"} hover:text-red-500 text-xs sm:text-sm`}
             >
               <Heart className={`w-4 h-4 mr-1 ${isLiked ? "fill-current" : ""}`} />
               {likeCount}
             </Button>
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary text-xs sm:text-sm">
               <MessageCircle className="w-4 h-4 mr-1" />
               {comments}
             </Button>
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary text-xs sm:text-sm">
               <Share2 className="w-4 h-4 mr-1" />
               {shares}
             </Button>
           </div>
           
           {type === "need" && (
-            <Button variant="donation" size="sm">
+            <Button variant="donation" size="sm" className="w-full sm:w-auto text-xs sm:text-sm">
               <Heart className="w-4 h-4 mr-1" />
               Donate
             </Button>
           )}
           
           {type === "investment" && (
-            <Button variant="investment" size="sm">
+            <Button variant="investment" size="sm" className="w-full sm:w-auto text-xs sm:text-sm">
               <TrendingUp className="w-4 h-4 mr-1" />
               Invest
             </Button>

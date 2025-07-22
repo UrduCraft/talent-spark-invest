@@ -2,12 +2,17 @@ import { Search, Bell, MessageCircle, Users, TrendingUp, Heart } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import MobileNavigation from "./MobileNavigation";
 
 const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/80 backdrop-blur-md">
       <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
+        {/* Mobile Navigation */}
+        <MobileNavigation />
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center">

@@ -106,19 +106,19 @@ const Index = () => {
         >
           <div className="absolute inset-0 bg-black/40" />
         </div>
-        <div className="relative container mx-auto px-4 py-20 text-center">
-          <h1 className="text-5xl font-bold text-white mb-6">
+        <div className="relative container mx-auto px-4 py-12 md:py-20 text-center">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6">
             Connect. Support. Invest.
           </h1>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-white/90 mb-6 md:mb-8 max-w-2xl mx-auto">
             The professional network where talent meets opportunity. Share your needs, 
             find support, and invest in the next generation of innovators.
           </p>
-          <div className="flex items-center justify-center gap-4">
-            <Button variant="hero" size="lg">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+            <Button variant="hero" size="lg" className="w-full sm:w-auto">
               Join TalentIn
             </Button>
-            <Button variant="outline" size="lg" className="bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+            <Button variant="outline" size="lg" className="w-full sm:w-auto bg-white/10 border-white text-white hover:bg-white hover:text-primary">
               Learn More
             </Button>
           </div>
@@ -126,9 +126,9 @@ const Index = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:gap-6">
           {/* Main Feed */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="space-y-6 order-2 md:order-1">
             <CreatePost />
             
             <div className="space-y-6">
@@ -138,8 +138,8 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-2 space-y-6">
+          {/* Sidebar - Mobile: Appears at top, Desktop: Appears on right */}
+          <div className="space-y-6 order-1 md:order-2">
             {/* Trending Investments */}
             <Card className="shadow-card">
               <CardHeader>
@@ -229,8 +229,8 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Recent Activities */}
-            <Card className="shadow-card">
+            {/* Recent Activities - Hidden on mobile to simplify the UI */}
+            <Card className="shadow-card hidden md:block">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Heart className="w-5 h-5 text-red-500" />
