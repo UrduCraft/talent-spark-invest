@@ -1,14 +1,36 @@
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import CreatePost from "@/components/CreatePost";
 import PostCard from "@/components/PostCard";
-import InvestmentModal from "@/components/InvestmentModal";
+import { CryptoInvestmentModal } from "@/components/CryptoInvestmentModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, Users, Heart, DollarSign, Star, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-image.jpg";
 
 const Index = () => {
+  const [selectedInvestment, setSelectedInvestment] = useState<any>(null);
+  const [opportunities, setOpportunities] = useState<any[]>([]);
+
+  // Load investment opportunities from Supabase
+  useEffect(() => {
+    const loadOpportunities = async () => {
+      const { data, error } = await supabase
+        .from('investment_opportunities')
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false });
+      
+      if (data) {
+        setOpportunities(data);
+      }
+    };
+
+    loadOpportunities();
+  }, []);
+
   // Sample data for posts
   const samplePosts = [
     {
@@ -67,32 +89,6 @@ const Index = () => {
     }
   ];
 
-  const trendingOpportunities = [
-    {
-      title: "EcoWear Sustainable Fashion",
-      description: "Revolutionary eco-friendly clothing line",
-      target: 200000,
-      current: 125000,
-      investors: 43,
-      category: "Fashion"
-    },
-    {
-      title: "Smart Agriculture IoT Platform",
-      description: "IoT sensors for precision farming",
-      target: 500000,
-      current: 180000,
-      investors: 67,
-      category: "AgTech"
-    },
-    {
-      title: "VR Education for Kids",
-      description: "Immersive learning experiences",
-      target: 100000,
-      current: 45000,
-      investors: 22,
-      category: "EdTech"
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -149,45 +145,37 @@ const Index = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {trendingOpportunities.map((opportunity, index) => (
-                  <div key={index} className="p-4 border rounded-lg hover:shadow-md transition-shadow cursor-pointer">
+                {opportunities.slice(0, 3).map((opportunity) => (
+                  <div key={opportunity.id} className="p-4 border rounded-lg hover:shadow-md transition-shadow cursor-pointer">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-sm">{opportunity.title}</h4>
                       <Badge variant="outline" className="text-xs">{opportunity.category}</Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground mb-3">{opportunity.description}</p>
+                    <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{opportunity.description}</p>
                     <div className="space-y-2">
                       <div className="flex justify-between text-xs">
-                        <span>${opportunity.current.toLocaleString()}</span>
-                        <span>${opportunity.target.toLocaleString()}</span>
+                        <span>{opportunity.current_amount_eth} ETH</span>
+                        <span>{opportunity.funding_goal_eth} ETH</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-1.5">
                         <div 
                           className="bg-investment h-1.5 rounded-full transition-all duration-300"
-                          style={{ width: `${(opportunity.current / opportunity.target) * 100}%` }}
+                          style={{ width: `${(opportunity.current_amount_eth / opportunity.funding_goal_eth) * 100}%` }}
                         />
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-xs text-muted-foreground">
-                          {opportunity.investors} investors
-                        </span>
-                        <InvestmentModal
-                          trigger={
-                            <Button variant="investment" size="sm">
-                              <TrendingUp className="w-3 h-3 mr-1" />
-                              Invest
-                            </Button>
-                          }
-                          projectTitle={opportunity.title}
-                          projectDescription={opportunity.description}
-                          targetAmount={opportunity.target}
-                          currentAmount={opportunity.current}
-                          investorCount={opportunity.investors}
-                          minimumInvestment={1000}
-                          expectedReturn="20-25%"
-                          timeframe="12-18 months"
-                          riskLevel="Medium"
-                        />
+                        <div className="flex items-center gap-2">
+                          <Badge variant="outline" className="text-xs">{opportunity.risk_level}</Badge>
+                          <span className="text-xs text-green-400">{opportunity.expected_return_percentage}%</span>
+                        </div>
+                        <Button 
+                          variant="investment" 
+                          size="sm"
+                          onClick={() => setSelectedInvestment(opportunity)}
+                        >
+                          <TrendingUp className="w-3 h-3 mr-1" />
+                          Invest
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -270,6 +258,15 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* Crypto Investment Modal */}
+      {selectedInvestment && (
+        <CryptoInvestmentModal
+          isOpen={!!selectedInvestment}
+          onClose={() => setSelectedInvestment(null)}
+          opportunity={selectedInvestment}
+        />
+      )}
     </div>
   );
 };
